@@ -5,7 +5,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: development
     volumes:
       - .docker/data/postgres_data:/var/lib/postgresql/data
       - .docker/data/sql/init.sql:/docker-entrypoint-initdb.d/init.sql

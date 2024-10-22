@@ -1,6 +1,5 @@
 BEGIN
 CREATE DATABASE development;
-
 \connect development;
 
 CREATE SCHEMA IF NOT EXISTS auth;
