@@ -1,3 +1,12 @@
-### Get
-GET {{base_url}}/user/1
+### GET user by id
+GET {{base_url}}/users/1
 
+### POST create user
+POST {{base_url}}/users
+Content-Type: application/json
+
+{
+  "name": "beltrano",
+  "email": "beltrano@example.com",
+  "password": "beltrano123"
+}
