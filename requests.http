@@ -1,2 +1,3 @@
 ### Get
-GET {{base_url}}/aqui
+GET {{base_url}}/user/1
+

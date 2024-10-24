@@ -1,12 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('aqui')
-  aqui() {
-    return "ok"
+  @Get('user/:id')
+  async getUser(@Param('id') id: string) {
+    return this.authService.getUserById(+id)
   }
 }
