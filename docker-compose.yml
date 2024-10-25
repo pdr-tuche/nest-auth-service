@@ -1,12 +1,12 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:alpine
     container_name: db-auth-service
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - .docker/data/postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
       - .docker/data/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
