@@ -10,8 +10,15 @@ export class AuthService {
     return this.prisma.user.findUnique({ where: { id: userId } });
   }
 
-  async createUser(user: PostUserDto) {
-    console.log(user);
+  async create(user: PostUserDto) {
     return this.prisma.user.create({ data: user });
+  }
+
+  async update(userId: number, user: PostUserDto) {
+    return this.prisma.user.update({ where: { id: userId }, data: user });
+  }
+
+  async delete(userId: number) {
+    this.prisma.user.delete({ where: { id: userId } });
   }
 }
