@@ -20,8 +20,8 @@ export class AuthController {
   }
 
   @Post('users')
-  async create(@Body() userDto: PostUserDto) {
-    return await this.authService.create(userDto);
+  async create(@Body() payload: PostUserDto) {
+    return await this.authService.store(payload);
   }
 
   @Put('users/:id')
