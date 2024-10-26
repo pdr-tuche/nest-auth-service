@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PostUserDto } from './dto/post-user.dto';
 
@@ -7,13 +15,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('users/:id')
-  show(@Param('id') id: string) {
-    return this.authService.getUserById(+id);
+  async show(@Param('id') id: string) {
+    return await this.authService.getUserById(+id);
   }
 
   @Post('users')
-  create(@Body() user: PostUserDto) {
-    return this.authService.create(user);
+  async create(@Body() userDto: PostUserDto) {
+    return await this.authService.create(userDto);
   }
 
   @Put('users/:id')
