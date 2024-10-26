@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -16,22 +18,26 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('users/:id')
+  @HttpCode(HttpStatus.OK)
   async show(@Param('id') id: string) {
     return await this.authService.getUserById(+id);
   }
 
   @Post('users')
+  @HttpCode(HttpStatus.CREATED)
   async create(@Body() payload: UserDtoPostRequest) {
     return await this.authService.store(payload);
   }
 
   @Put('users/:id')
+  @HttpCode(HttpStatus.OK)
   update(@Param('id') id: string, @Body() user: UserDtoPutRequest) {
     return this.authService.update(+id, user);
   }
 
   @Delete('users/:id')
-  delete(@Param('id') id: string) {
+  @HttpCode(HttpStatus.NO_CONTENT)
+  destroy(@Param('id') id: string) {
     return this.authService.delete(+id);
   }
 }
