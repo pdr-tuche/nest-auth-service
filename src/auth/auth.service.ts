@@ -44,10 +44,29 @@ export class AuthService {
   }
 
   async update(userId: number, user: UserDtoPutRequest) {
-    return this.prisma.user.update({ where: { id: userId }, data: user });
+    const updateUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!updateUser) {
+      throw new UserNotFoundException();
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { id: userId },
+      data: user,
+    });
+
+    return new UserDto(updatedUser.id, updatedUser.name, updatedUser.email);
   }
 
   async delete(userId: number) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      throw new UserNotFoundException();
+    }
+
     this.prisma.user.delete({ where: { id: userId } });
   }
 }
