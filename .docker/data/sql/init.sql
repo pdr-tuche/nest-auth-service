@@ -9,3 +9,6 @@ CREATE TABLE IF NOT EXISTS auth.users (
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
 );
+
+INSERT INTO auth.users (name, email, password)
+VALUES ('fulano', 'fulano@example.com', '123456');
