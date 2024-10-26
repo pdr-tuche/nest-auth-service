@@ -8,7 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { PostUserDto } from './dto/post-user.dto';
+import { UserDtoPostRequest } from './dto/user-dto-post-request.dto';
+import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -20,12 +21,12 @@ export class AuthController {
   }
 
   @Post('users')
-  async create(@Body() payload: PostUserDto) {
+  async create(@Body() payload: UserDtoPostRequest) {
     return await this.authService.store(payload);
   }
 
   @Put('users/:id')
-  update(@Param('id') id: string, @Body() user: PostUserDto) {
+  update(@Param('id') id: string, @Body() user: UserDtoPutRequest) {
     return this.authService.update(+id, user);
   }
 

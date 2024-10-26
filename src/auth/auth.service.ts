@@ -1,11 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { PostUserDto } from './dto/post-user.dto';
+import { UserDtoPostRequest } from './dto/user-dto-post-request.dto';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { AppConfig } from 'src/config/app.config';
 import { UserNotFoundException } from 'src/exceptions/user-not-found.exception';
 import { InvalidEmailException } from 'src/exceptions/invalid-email.execption';
+import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
     return new UserDto(user.id, user.name, user.email);
   }
 
-  async store(payload: PostUserDto) {
+  async store(payload: UserDtoPostRequest) {
     const { password, email } = payload;
 
     const emailExists = await this.prisma.user.findUnique({
@@ -42,7 +43,7 @@ export class AuthService {
     return new UserDto(user.id, user.name, user.email);
   }
 
-  async update(userId: number, user: PostUserDto) {
+  async update(userId: number, user: UserDtoPutRequest) {
     return this.prisma.user.update({ where: { id: userId }, data: user });
   }
 
