@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './app/auth.module';
 import { AppConfig } from './config/app.config';
 
 async function bootstrap() {
