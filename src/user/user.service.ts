@@ -9,7 +9,7 @@ import { InvalidEmailException } from 'src/exceptions/invalid-email.execption';
 import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
 
 @Injectable()
-export class AuthService {
+export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getUserById(userId: number) {
