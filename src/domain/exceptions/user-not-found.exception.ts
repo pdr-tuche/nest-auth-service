@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ExceptionMessageEnum } from 'src/enums/exception-message.enum';
+import { ExceptionMessageEnum } from 'src/domain/enums/exception-message.enum';
 
 export class UserNotFoundException extends HttpException {
   constructor() {
