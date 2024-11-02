@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../infrastructure/services/prisma/prisma.service';
-import { UserDtoPostRequest } from './dto/user-dto-post-request.dto';
-import { UserDto } from './dto/user.dto';
+import { PrismaService } from '../common/providers/prisma/prisma.service';
+import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dto';
+import { UserDto } from '../common/dtos/user/user.dto';
 import * as bcrypt from 'bcrypt';
-import { UserNotFoundException } from 'src/exceptions/user-not-found.exception';
-import { InvalidEmailException } from 'src/exceptions/invalid-email.execption';
-import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
-import { AppConfigEnum } from 'src/enums/app-config.enum';
+import { UserNotFoundException } from 'src/common/exceptions/user-not-found.exception';
+import { InvalidEmailException } from 'src/common/exceptions/invalid-email.execption';
+import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
+import { AppConfigEnum } from 'src/common/enums/app-config.enum';
 
 @Injectable()
 export class UserService {

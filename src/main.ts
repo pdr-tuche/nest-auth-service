@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { AppConfigEnum } from './enums/app-config.enum';
+import { AppConfigEnum } from './common/enums/app-config.enum';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

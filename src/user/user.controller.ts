@@ -10,8 +10,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDtoPostRequest } from './dto/user-dto-post-request.dto';
-import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
+import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dto';
+import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
 
 @Controller('auth')
 export class UserController {
