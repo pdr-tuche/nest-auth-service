@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppConfig } from './config/app.config';
-import { UserModule } from './domain/user/user.module';
+import { AppModule } from './app.module';
+import { AppConfigEnum } from './common/enums/app-config.enum';
 
 async function bootstrap() {
-  const app = await NestFactory.create(UserModule);
-  await app.listen(AppConfig().PORT ?? 3000);
+  const app = await NestFactory.create(AppModule);
+  await app.listen(AppConfigEnum.APP_PORT ?? 3000);
 }
 bootstrap();
