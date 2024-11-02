@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppConfig } from './config/app.config';
 import { AppModule } from './app.module';
+import { AppConfigEnum } from './enums/app-config.enum';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(AppConfig().PORT ?? 3000);
+  await app.listen(AppConfigEnum.APP_PORT ?? 3000);
 }
 bootstrap();

@@ -3,17 +3,19 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserDtoPostRequest } from './dto/user-dto-post-request.dto';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import { AppConfig } from 'src/config/app.config';
 import { UserNotFoundException } from 'src/exceptions/user-not-found.exception';
 import { InvalidEmailException } from 'src/exceptions/invalid-email.execption';
 import { UserDtoPutRequest } from './dto/user-dto-put-request.dto';
+import { AppConfigEnum } from 'src/enums/app-config.enum';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prismaService: PrismaService) {}
 
   async getUserById(userId: number) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.prismaService.user.findUnique({
+      where: { id: userId },
+    });
 
     if (!user) {
       throw new UserNotFoundException();
@@ -22,10 +24,10 @@ export class UserService {
     return new UserDto(user.id, user.name, user.email);
   }
 
-  async store(payload: UserDtoPostRequest) {
+  async create(payload: UserDtoPostRequest) {
     const { password, email } = payload;
 
-    const emailExists = await this.prisma.user.findUnique({
+    const emailExists = await this.prismaService.user.findUnique({
       where: { email },
     });
 
@@ -35,16 +37,16 @@ export class UserService {
 
     payload.password = await bcrypt.hash(
       password,
-      AppConfig().BCRYPT_SALT_ROUNDS,
+      AppConfigEnum.BCRYPT_SALT_ROUNDS,
     );
 
-    const user = await this.prisma.user.create({ data: payload });
+    const user = await this.prismaService.user.create({ data: payload });
 
     return new UserDto(user.id, user.name, user.email);
   }
 
   async update(userId: number, user: UserDtoPutRequest) {
-    const updateUser = await this.prisma.user.findUnique({
+    const updateUser = await this.prismaService.user.findUnique({
       where: { id: userId },
     });
 
@@ -52,7 +54,7 @@ export class UserService {
       throw new UserNotFoundException();
     }
 
-    const updatedUser = await this.prisma.user.update({
+    const updatedUser = await this.prismaService.user.update({
       where: { id: userId },
       data: user,
     });
@@ -61,12 +63,14 @@ export class UserService {
   }
 
   async delete(userId: number) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.prismaService.user.findUnique({
+      where: { id: userId },
+    });
 
     if (!user) {
       throw new UserNotFoundException();
     }
 
-    this.prisma.user.delete({ where: { id: userId } });
+    this.prismaService.user.delete({ where: { id: userId } });
   }
 }

@@ -26,7 +26,7 @@ export class UserController {
   @Post('users')
   @HttpCode(HttpStatus.CREATED)
   async store(@Body() payload: UserDtoPostRequest) {
-    return await this.userService.store(payload);
+    return await this.userService.create(payload);
   }
 
   @Put('users/:id')
