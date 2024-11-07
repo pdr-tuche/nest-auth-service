@@ -20,9 +20,7 @@ export class UserController {
 
   @Get('users/:id')
   @HttpCode(HttpStatus.OK)
-  async show(
-    @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number,
-  ) {
+  async show(@Param('id') id: number) {
     return await this.userService.getUserById(id);
   }
 
@@ -34,7 +32,7 @@ export class UserController {
 
   @Put('users/:id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id', ParseIntPipe) id: number, @Body() user: UserDtoPutRequest) {
+  update(@Param('id') id: number, @Body() user: UserDtoPutRequest) {
     return this.userService.update(id, user);
   }
 
