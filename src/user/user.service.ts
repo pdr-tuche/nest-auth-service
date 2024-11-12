@@ -4,26 +4,16 @@ import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dt
 import { UserDto } from '../common/dtos/user/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UserNotFoundException } from 'src/common/exceptions/user-not-found.exception';
-import { InvalidEmailException } from 'src/common/exceptions/invalid-email.execption';
 import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
 import { AppConfigEnum } from 'src/common/enums/app-config.enum';
-import { UserServiceInterface } from './user-service.interface';
+import { VerifyUserEmailService } from './providers/veriy-user-email.service';
 
 @Injectable()
-export class UserService implements UserServiceInterface {
-  constructor(private prismaService: PrismaService) {}
-
-  async verifyUserEmail(email: string): Promise<string> {
-    const emailExists = await this.prismaService.user.findUnique({
-      where: { email },
-    });
-
-    if (emailExists) {
-      throw new InvalidEmailException();
-    }
-
-    return email;
-  }
+export class UserService {
+  constructor(
+    private readonly verifyUserEmailService: VerifyUserEmailService,
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async getUserById(id: number): Promise<UserDto> {
     const user = await this.prismaService.user.findUnique({
@@ -40,7 +30,7 @@ export class UserService implements UserServiceInterface {
   async create(payload: UserDtoPostRequest): Promise<UserDto> {
     const { password, email } = payload;
 
-    this.verifyUserEmail(email);
+    await this.verifyUserEmailService.handle(email);
 
     payload.password = await bcrypt.hash(password, AppConfigEnum.BCRYPT_SALT_ROUNDS);
 
