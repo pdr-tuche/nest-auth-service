@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InvalidEmailException } from 'src/common/exceptions/invalid-email.execption';
 import { PrismaService } from 'src/common/providers/prisma/prisma.service';
-import { UserProviderInterface } from './user-provider.interface';
+import { ProviderInterface } from '../../common/providers/provider.interface';
 
 @Injectable()
-export class VerifyUserEmailService implements UserProviderInterface {
+export class VerifyUserEmailService implements ProviderInterface {
   constructor(private readonly prismaService: PrismaService) {}
 
   async handle(email: string): Promise<string> {
