@@ -16,10 +16,8 @@ import { GetUserByIdService } from './providers/get-user-by-id.service';
 import { CreateUserService } from './providers/create-user.service';
 import { UpdateUserService } from './providers/update-user.service';
 import { DeleteUserService } from './providers/delete-user.service';
-import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 @Controller('users')
-@UseFilters(HttpExceptionFilter)
 export class UserController {
   constructor(
     private readonly getUserByIdService: GetUserByIdService,
