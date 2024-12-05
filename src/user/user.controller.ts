@@ -6,39 +6,47 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  ParseIntPipe,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
-import { UserService } from './user.service';
 import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dto';
 import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
+import { GetUserByIdService } from './providers/get-user-by-id.service';
+import { CreateUserService } from './providers/create-user.service';
+import { UpdateUserService } from './providers/update-user.service';
+import { DeleteUserService } from './providers/delete-user.service';
 
-@Controller('auth')
+@Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly getUserByIdService: GetUserByIdService,
+    private readonly createUserService: CreateUserService,
+    private readonly updateUserService: UpdateUserService,
+    private readonly deleteUserService: DeleteUserService,
+  ) {}
 
-  @Get('users/:id')
+  @Get(':id')
   @HttpCode(HttpStatus.OK)
   async show(@Param('id') id: number) {
-    return await this.userService.getUserById(id);
+    return await this.getUserByIdService.handle(id);
   }
 
-  @Post('users')
+  @Post('')
   @HttpCode(HttpStatus.CREATED)
   async store(@Body() payload: UserDtoPostRequest) {
-    return await this.userService.create(payload);
+    return await this.createUserService.handle(payload);
   }
 
-  @Put('users/:id')
+  @Put('/:id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: number, @Body() user: UserDtoPutRequest) {
-    return this.userService.update(id, user);
+  async update(@Param('id') id: number, @Body() user: UserDtoPutRequest) {
+    return await this.updateUserService.handle(id, user);
   }
 
-  @Delete('users/:id')
+  @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  destroy(@Param('id') id: string) {
-    return this.userService.delete(+id);
+  async destroy(@Param('id') id: number) {
+    return await this.deleteUserService.handle(id);
   }
 }
