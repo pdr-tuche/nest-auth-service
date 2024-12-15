@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthPayloadDto } from 'src/common/dtos/auth/auth.dto';
 import { PrismaService } from 'src/common/providers/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { InvalidCredentialsException } from 'src/common/exceptions/invalid-credentials.exception';
 import { UserDto } from 'src/common/dtos/user/user.dto';
+import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,6 @@ export class AuthService {
   ) {}
 
   protected async validateUser({ email, password }: AuthPayloadDto): Promise<UserDto> {
-    console.log('service validating user');
     const user = await this.prismaService.user.findUnique({
       where: {
         email: email,
@@ -22,7 +21,7 @@ export class AuthService {
     });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new InvalidCredentialsException();
+      throw new UnauthorizedException(ExceptionMessageEnum.INVALID_CREDENTIALS);
     }
 
     return new UserDto(user.id, user.name, user.email);
@@ -33,7 +32,8 @@ export class AuthService {
 
     //todo: melhorar isso de passar id e email no jwt
     // sugestao: utilizar username sem ser email
-    const payload = { sub: user.getId(), username: user.getEmail() };
+    //todo: adicionar roles no jwt
+    const payload = { sub: user.getId(), name: user.getName(), username: user.getEmail() };
     return this.jwtService.signAsync(payload);
   }
 }

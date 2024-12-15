@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InvalidEmailException } from 'src/common/exceptions/invalid-email.execption';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/providers/prisma/prisma.service';
 import { ProviderInterface } from '../../common/providers/provider.interface';
+import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
 
 @Injectable()
 export class VerifyUserEmailService implements ProviderInterface {
@@ -13,7 +13,7 @@ export class VerifyUserEmailService implements ProviderInterface {
     });
 
     if (emailExists) {
-      throw new InvalidEmailException();
+      throw new BadRequestException(ExceptionMessageEnum.INVALID_EMAIL);
     }
 
     return email;

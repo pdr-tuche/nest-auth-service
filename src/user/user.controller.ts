@@ -8,7 +8,7 @@ import {
   Param,
   Post,
   Put,
-  UseFilters,
+  Req,
 } from '@nestjs/common';
 import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dto';
 import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
@@ -16,6 +16,7 @@ import { GetUserByIdService } from './providers/get-user-by-id.service';
 import { CreateUserService } from './providers/create-user.service';
 import { UpdateUserService } from './providers/update-user.service';
 import { DeleteUserService } from './providers/delete-user.service';
+import { Request } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -28,7 +29,7 @@ export class UserController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async show(@Param('id') id: number) {
+  async show(@Param('id') id: number, @Req() req: Request) {
     return await this.getUserByIdService.handle(id);
   }
 

@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProviderInterface } from '../../common/providers/provider.interface';
 import { PrismaService } from 'src/common/providers/prisma/prisma.service';
 import { UserDto } from 'src/common/dtos/user/user.dto';
-import { UserNotFoundException } from 'src/common/exceptions/user-not-found.exception';
+import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
 
 @Injectable()
 export class GetUserByIdService implements ProviderInterface {
@@ -14,7 +14,7 @@ export class GetUserByIdService implements ProviderInterface {
     });
 
     if (!user) {
-      throw new UserNotFoundException();
+      throw new NotFoundException(ExceptionMessageEnum.USER_NOT_FOUND);
     }
 
     return new UserDto(user.id, user.name, user.email);
