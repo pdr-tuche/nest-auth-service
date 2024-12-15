@@ -7,7 +7,7 @@ import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
 export class VerifyUserEmailService implements ProviderInterface {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async handle(email: string): Promise<string> {
+  async execute(email: string): Promise<string> {
     const emailExists = await this.prismaService.user.findUnique({
       where: { email },
     });

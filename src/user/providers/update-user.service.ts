@@ -12,8 +12,8 @@ export class UpdateUserService implements ProviderInterface {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async handle(userId: number, payload: UserDtoPutRequest): Promise<UserDto> {
-    await this.getUserByIdService.handle(userId);
+  async execute(userId: number, payload: UserDtoPutRequest): Promise<UserDto> {
+    await this.getUserByIdService.execute(userId);
 
     const updatedUser = await this.prismaService.user.update({
       where: { id: userId },

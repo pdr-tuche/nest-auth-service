@@ -8,7 +8,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
 } from '@nestjs/common';
 import { UserDtoPostRequest } from '../common/dtos/user/user-dto-post-request.dto';
 import { UserDtoPutRequest } from '../common/dtos/user/user-dto-put-request.dto';
@@ -16,7 +15,6 @@ import { GetUserByIdService } from './providers/get-user-by-id.service';
 import { CreateUserService } from './providers/create-user.service';
 import { UpdateUserService } from './providers/update-user.service';
 import { DeleteUserService } from './providers/delete-user.service';
-import { Request } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -29,25 +27,25 @@ export class UserController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async show(@Param('id') id: number, @Req() req: Request) {
-    return await this.getUserByIdService.handle(id);
+  async show(@Param('id') id: number) {
+    return await this.getUserByIdService.execute(id);
   }
 
   @Post('')
   @HttpCode(HttpStatus.CREATED)
   async store(@Body() payload: UserDtoPostRequest) {
-    return await this.createUserService.handle(payload);
+    return await this.createUserService.execute(payload);
   }
 
   @Put('/:id')
   @HttpCode(HttpStatus.OK)
   async update(@Param('id') id: number, @Body() user: UserDtoPutRequest) {
-    return await this.updateUserService.handle(id, user);
+    return await this.updateUserService.execute(id, user);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async destroy(@Param('id') id: number) {
-    return await this.deleteUserService.handle(id);
+    return await this.deleteUserService.execute(id);
   }
 }

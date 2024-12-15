@@ -1,3 +1,3 @@
 export interface ProviderInterface {
-  handle(...args: any[]): any;
+  execute(...args: any[]): any;
 }

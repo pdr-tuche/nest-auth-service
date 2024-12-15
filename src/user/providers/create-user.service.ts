@@ -14,12 +14,12 @@ export class CreateUserService implements ProviderInterface {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async handle(payload: UserDtoPostRequest): Promise<UserDto> {
+  async execute(payload: UserDtoPostRequest): Promise<UserDto> {
     const { password, email } = payload;
 
-    await this.verifyUserEmailService.handle(email);
+    await this.verifyUserEmailService.execute(email);
 
-    payload.password = await this.hashUserPasswordService.handle(password);
+    payload.password = await this.hashUserPasswordService.execute(password);
 
     const user = await this.prismaService.user.create({ data: payload });
 

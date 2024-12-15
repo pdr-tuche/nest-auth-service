@@ -10,8 +10,8 @@ export class DeleteUserService implements ProviderInterface {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async handle(userId: number): Promise<void> {
-    await this.getUserByIdService.handle(userId);
+  async execute(userId: number): Promise<void> {
+    await this.getUserByIdService.execute(userId);
 
     await this.prismaService.user.delete({ where: { id: userId } });
   }

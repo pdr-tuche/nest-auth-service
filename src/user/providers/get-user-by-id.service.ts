@@ -8,7 +8,7 @@ import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
 export class GetUserByIdService implements ProviderInterface {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async handle(id: number): Promise<UserDto> {
+  async execute(id: number): Promise<UserDto> {
     const user = await this.prismaService.user.findUnique({
       where: { id },
     });
