@@ -1,8 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/providers/prisma/prisma.service';
+import { PrismaService } from '../../common/providers/prisma/prisma.service';
 import { ProviderInterface } from '../../common/providers/provider.interface';
-import { ExceptionMessageEnum } from 'src/common/enums/exception-message.enum';
-
+import { ExceptionMessageEnum } from '../../common/enums/exception-message.enum';
 @Injectable()
 export class VerifyUserEmailService implements ProviderInterface {
   constructor(private readonly prismaService: PrismaService) {}

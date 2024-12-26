@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UserDtoPostRequest } from 'src/common/dtos/user/user-dto-post-request.dto';
-import { UserDto } from 'src/common/dtos/user/user.dto';
+import { UserDtoPostRequest } from '../../common/dtos/user/user-dto-post-request.dto';
+import { UserDto } from '../../common/dtos/user/user.dto';
 import { ProviderInterface } from 'src/common/providers/provider.interface';
 import { VerifyUserEmailService } from './veriy-user-email.service';
 import { HashUserPasswordService } from './hash-user-password.service';
-import { PrismaService } from 'src/common/providers/prisma/prisma.service';
+import { PrismaService } from '../../common/providers/prisma/prisma.service';
 
 @Injectable()
 export class CreateUserService implements ProviderInterface {

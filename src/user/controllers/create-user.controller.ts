@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { UserDtoPostRequest } from 'src/common/dtos/user/user-dto-post-request.dto';
+import { UserDtoPostRequest } from '../../common/dtos/user/user-dto-post-request.dto';
 import { CreateUserService } from '../providers/create-user.service';
 
 // todo: rever se realmente é necessario criar esse endpoint
