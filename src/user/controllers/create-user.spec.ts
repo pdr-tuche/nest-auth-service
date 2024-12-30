@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserController } from './create-user.controller';
 import { UserDto } from '../../common/dtos/user/user.dto';
-import { BadRequestException } from '@nestjs/common';
-import { ExceptionMessageEnum } from '../../common/enums/exception-message.enum';
 import { CreateUserService } from '../providers/create-user.service';
 
 describe('CreateUserController', () => {

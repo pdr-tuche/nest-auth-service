@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ProviderInterface } from 'src/common/providers/provider.interface';
+import { ProviderInterface } from '../../common/providers/provider.interface';
 import { GetUserByIdService } from './get-user-by-id.service';
-import { PrismaService } from 'src/common/providers/prisma/prisma.service';
+import { PrismaService } from '../../common/providers/prisma/prisma.service';
 
 @Injectable()
 export class DeleteUserService implements ProviderInterface {

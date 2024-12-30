@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
 import { UpdateUserService } from '../providers/update-user.service';
-import { UserDtoPutRequest } from 'src/common/dtos/user/user-dto-put-request.dto';
+import { UserDtoPutRequest } from '../../common/dtos/user/user-dto-put-request.dto';
 
 @Controller('users')
 export class UpdateUserController {
