@@ -1,4 +1,0 @@
-//config
-import "./client.prisma"
-//schemas
-import "./user.prisma"
